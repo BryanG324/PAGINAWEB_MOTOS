@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KTM DUKE - Blog</title>
+  <!-- Se enlazan fuentes externas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Estilos CSS integrados directamente desde tus archivos para asegurar la correcta visualización -->
+  <style>
+    /* --- ESTILOS GENERALES Y DE RESET (de tu index.css) --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      flex: 1 0 auto;
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    main.homepage {
+      flex-grow: 1;
+    }
+
+    /* --- ESTILOS DEL HEADER (de tu index.css) --- */
+    header {
+      background-color: #ff6600;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 2rem;
+      color: #000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+
+    .logo svg {
+      height: 50px;
+      width: auto;
+    }
+
+    nav.menu {
+      display: flex;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    nav.menu a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+
+    nav.menu a:hover,
+    nav.menu a:focus {
+      background-color: #000;
+      color: #ff6600;
+      box-shadow: 0 0 8px #fff;
+    }
+
+    /* --- ESTILOS DE LA SECCIÓN HERO (de tu index.css) --- */
+    #herroo {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      text-align: center;
+      height: 70vh;
+      color: #fff;
+      background-position: center center;
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(imagenes/carre.png);
+      background-size: cover;
+      box-shadow: inset 0 0 20px rgba(255, 102, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .containerr {
+      max-width: 500px;
+      padding: 0 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      gap: 20px;
+      z-index: 2;
+    }
+
+    .duk-one {
+      font-family: Impact, sans-serif;
+      font-size: 3em;
+      text-transform: uppercase;
+      text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .duk-on {
+      font-family: Impact, sans-serif;
+      font-size: 1.4em;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .button-one {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      text-transform: uppercase;
+      background-color: #ff6600;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      align-self: flex-start;
+      /* Cambio para alinear a la izquierda dentro del contenedor */
+      box-shadow: 0 0 15px rgba(255, 102, 0, 0.7);
+    }
+
+    .button-one:hover {
+      background-color: #ffa64d;
+      color: #000;
+      box-shadow: 0 0 25px #fff;
+    }
+
+
+    /* --- ESTILOS PARA LA SECCIÓN DE ARTÍCULOS DEL BLOG --- */
+    .blog-section {
+      padding: 80px 20px;
+      background-color: #1a1a1a;
+    }
+
+    .blog-section h2 {
+      text-align: center;
+      font-size: 3rem;
+      color: #ff6600;
+      margin-bottom: 60px;
+      text-transform: uppercase;
+      font-family: 'Anton', sans-serif;
+
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+    }
+
+    .blog-card {
+      background: #222;
+      border-radius: 15px;
+      border: 1px solid #333;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(255, 102, 0, 0.2);
+      border-color: #ff6600;
+    }
+
+    .blog-card-image {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .blog-card-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card-content h3 {
+      font-family: 'anton
+ ', ;
+ font-size: 1.8rem;
+      color: #ffffff;
+      margin-bottom: 15px;
+    }
+
+    .blog-card-content .meta {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 15px;
+    }
+
+    .blog-card-content p {
+      color: #ccc;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .blog-card-content .cta-blog {
+      display: inline-block;
+      background-color: transparent;
+      color: #ff6600;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.3s ease;
+      border: 2px solid #ff6600;
+      text-transform: uppercase;
+      align-self: flex-start;
+    }
+
+    .blog-card-content .cta-blog:hover {
+      background-color: #ff6600;
+      color: #000;
+    }
+
+    /* --- ESTILOS DEL FOOTER (de tu index.css) --- */
+    footer {
+      background-color: #000;
+      text-align: center;
+      padding: 25px 15px;
+      color: #ff6600;
+      font-weight: 600;
+      flex-shrink: 0;
+      border-top: 3px solid #ff6600;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ##### HEADER (Copiado de tu index.html) ##### -->
+  <header>
+    <div class="logo">
+      <svg id="ktm-logo" viewBox="0 0 100 100" width="50" height="50">
+        <path d="M10 10 L50 90 L90 10 Z" fill="#ff6600" stroke="#000" stroke-width="3" />
+        <circle cx="50" cy="50" r="40" fill="#000" />
+        <text x="50" y="55" font-family="Impact, sans-serif" font-size="25" fill="#ff6600"
+          text-anchor="middle">KTM</text>
+      </svg>
+      KTM DUKE
+    </div>
+    <nav class="menu">
+      <a href="duke.html">Inicio</a>
+      <a href="index.html">Modelos</a>
+      <a href="blog.html">Blog</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </header>
+
+  <!-- ##### HERO SECTION (Estructura de tu index.html con texto de blog) ##### -->
+  <section id="herroo">
+    <div class="containerr">
+      <h1 class="duk-one"><span>UNIVERSO</span> <span>DUKE</span> </h1>
+      <p class="duk-on">Noticias, comparativas, consejos y las mejores rutas. Sumérgete en el mundo naranja y descubre
+        todo sobre tu KTM Duke.</p>
+      <button class="button-one">Últimos Artículos</button>
+    </div>
+  </section>
+
+  <!-- ##### CONTENIDO PRINCIPAL DEL BLOG ##### -->
+  <main class="homepage">
+    <section class="blog-section">
+      <div class="container">
+        <h2>Artículos Recientes</h2>
+        <div class="blog-grid">
+
+          <!-- Artículo: Novedades y Lanzamientos -->
+          <article class="blog-card">
+            <img src="imagenes/89.png" alt="Nueva KTM 990 Duke" class="blog-card-image"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/222/ff6600?text=Lanzamiento';">
+            <div class="blog-card-content">
+              <h3>OFICIAL: La KTM 990 Duke 2025 llega para redefinir el segmento</h3>
+              <div class="meta">Publicado el 12 de Agosto, 2025</div>
+              <p>La espera terminó. KTM desvela todos los detalles de la nueva "Super Scalpel", con un motor renovado,
+                electrónica de vanguardia y un diseño que no dejará a nadie indiferente.</p>
+              <a href="#" class="cta-blog">Leer más</a>
+            </div>
+          </article>
+
+          <!-- Artículo: Comparativas -->
+          <article class="blog-card">
+            <img src="imagenes/mt.png" alt="Comparativa de motocicletas" class="blog-card-image"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/222/ff6600?text=Comparativa';">
+            <div class="blog-card-content">
+              <h3>KTM 790 Duke vs. Yamaha MT-09: ¿Cuál es la reina de las naked medias?</h3>
+              <div class="meta">Publicado el 10 de Agosto, 2025</div>
+              <p>Analizamos punto por punto a dos de las motos más deseadas. Motor, chasis, tecnología y sensaciones.
+                ¿La agilidad austriaca o la furia japonesa? Te damos nuestro veredicto.</p>
+              <a href="#" class="cta-blog">Leer más</a>
+            </div>
+          </article>
+
+          <!-- Artículo: Consejos de Mantenimiento -->
+          <article class="blog-card">
+            <img src="imagenes/ab.jpg" alt="Mantenimiento de motocicleta" class="blog-card-image"
+              onerror="this.onerror=null;this.src='https://placehold.co/600x400/222/ff6600?text=Mantenimiento';">
+            <div class="blog-card-content">
+              <h3>5 Mods imprescindibles para tu KTM 390 Duke</h3>
+              <div class="meta">Publicado el 08 de Agosto, 2025</div>
+              <p>Desde un nuevo escape hasta ajustes en la ECU. Te mostramos las personalizaciones clave para exprimir
+                al máximo el rendimiento de tu "Corner Rocket" y darle un toque único.</p>
+              <a href="#" class="cta-blog">Leer más</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ##### FOOTER (Copiado de tu index.html) ##### -->
+  <footer>
+    © 2025 KTM DUKE. Todos los derechos reservados.
+  </footer>
+
+  <!-- ##### SCRIPTS (Enlazado a tu index.js) ##### -->
+  <script src="index.js"></script>
+
+</body>
+
+</html>
